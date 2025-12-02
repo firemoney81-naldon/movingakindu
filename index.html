@@ -1,23 +1,503 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+   <style>
+        /* 기본 스타일 및 폰트 설정 */
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            line-height: 1.7; 
+            margin: 0; 
+            padding: 0; 
+            background: #f4f7f9; /* 부드러운 배경색 */
+            color: #2c3e50; /* 명확한 텍스트 색상 */
+            font-weight: 300;
+        }
+        header, section, footer, nav { 
+            max-width: 900px; 
+            margin: 20px auto; 
+            padding: 20px 25px; 
+            background: #ffffff; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* 부드러운 그림자 */
+        }
+        h1, h2, h3 { 
+            color: #3498db; /* 다채로운 제목 색상 */
+            font-weight: 700;
+            margin-top: 0.8em;
+            margin-bottom: 0.5em;
+        }
+        h1 { font-size: 2.2em; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { font-size: 1.8em; color: #2ecc71; border-left: 5px solid #2ecc71; padding-left: 10px; margin-top: 30px; }
+        h3 { font-size: 1.4em; color: #e67e22; margin-top: 20px; }
+        
+        ul, ol { padding-left: 25px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; font-weight: 400; }
+        strong { font-weight: 700; color: #2c3e50; }
+
+        /* 테이블 스타일 */
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 20px 0; 
+            background: #fdfdfd; 
+            border: 1px solid #ddd;
+        }
+        th, td { 
+            border: 1px solid #e0e0e0; 
+            padding: 12px; 
+            text-align: center; 
+            font-size: 0.95em;
+        }
+        th { 
+            background: #3498db; 
+            color: #fff; 
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        td:nth-child(even) { background-color: #f9f9f9; } /* 가독성 향상 */
+
+        /* 링크 스타일 */
+        a { color: #3498db; text-decoration: none; transition: color 0.3s; }
+        a:hover { color: #2980b9; text-decoration: underline; }
+
+        /* CTA 버튼 */
+        .btn-cta {
+            display: block; /* 전체 폭 사용 */
+            width: 100%;
+            padding: 15px 25px;
+            background: #e74c3c; /* 눈에 띄는 색상 */
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1em;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+            transition: background-color 0.3s ease, transform 0.2s;
+            text-align: center;
+            margin: 25px 0;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-cta:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* 앵커 및 폼 스타일 */
+        .anchor {
+            display: block;
+            position: relative;
+            top: -90px; 
+            visibility: hidden;
+        }
+        form {
+            background: #ecf0f1; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #34495e;
+        }
+        input[type="text"], input[type="tel"], select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+            font-size: 1em;
+        }
+        input[type="text"]:focus, input[type="tel"]:focus, select:focus, textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        textarea { resize: vertical; }
+
+        /* 내용 강조 박스 */
+        .info-box {
+            background: #eaf5ff;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .warning-box {
+            background: #fef4f4;
+            border-left: 5px solid #e74c3c;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: 400;
+        }
+
+        /* 반응형 */
+        @media(max-width: 650px) {
+            body { padding: 5px; }
+            header, section, footer, nav { margin: 10px auto; padding: 15px; border-radius: 8px; }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.5em; }
+            .btn-cta { font-size: 1em; padding: 12px 15px; }
+            th, td { padding: 8px; font-size: 0.9em; }
+            nav ul { padding: 0; text-align: center; }
+            nav li { display: inline-block; margin: 5px 8px; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MovingCompany",
+      "name": "5월 이사 손없는날 전문 상담 센터",
+      "image": "https://도메인/이사전문로고.png",
+      "url": "https://도메인/2026년-5월-이사-손없는날",
+      "telephone": "031-123-4567",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "경기도 평택시 ○○로 ○○",
+        "addressLocality": "평택시",
+        "addressRegion": "경기",
+        "postalCode": "17900",
+        "addressCountry": "KR"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "대한민국 전 지역"
+      },
+      "priceRange": "₩₩₩",
+      "description": "2026년 5월 이사 손없는날 정보를 포함한 이사 관련 모든 정보를 제공하고, 전국 포장이사 견적을 비교해 드립니다."
+    }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>2026년 5월 이사 손없는날 완벽 가이드</h1>
+        <p>이사 전문가가 알려주는 **2026년 이사 손없는날** 날짜, 합리적인 **포장이사 비용** 및 **이사 체크리스트** 정보!</p>
+        <a href="#contact-form" class="btn-cta">5월 이사 손없는날 맞춤 견적 상담 받기</a>
+    </header>
+
+    <nav aria-label="주요 정보 바로가기">
+        <ul>
+            <li><a href="#non-day">2026년 5월 손없는날</a></li>
+            <li><a href="#cost-analysis">이사 비용 심층 분석</a></li>
+            <li><a href="#type-tips">이사 유형별 팁</a></li>
+            <li><a href="#checklist">필수 체크리스트</a></li>
+            <li><a href="#contact-form">실시간 견적 문의</a></li>
+        </ul>
     </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+    <hr>
+    
+    <section id="non-day-intro">
+        <span id="non-day" class="anchor"></span>
+        <h2>📅 2026년 5월 이사 손없는날: 날짜와 의미</h2>
+        
+        <div class="info-box">
+            <p><strong>'손없는 날'</strong>이란 예로부터 악귀나 악신(손, 損)이 하늘로 올라가거나 다른 곳으로 이동하여 인간에게 해를 끼치지 않는 길한 날을 뜻합니다. 특히 이사, 혼례, 개업 등 중요한 행사를 할 때 이 날을 택하면 모든 일이 순조롭고 번창한다는 믿음이 있습니다. **이사 손없는날**은 이삿짐센터 예약이 폭주하고 이사 비용이 상승하는 주된 요인이 됩니다.</p>
+            <p>이 '손'은 음력으로 끝자리 숫자가 **9와 0**인 날을 제외한 모든 날에 해당됩니다. 즉, 음력 날짜 끝자리가 **1, 2, 5, 6**일인 경우 '손 있는 날'이며, **9, 0, 3, 4, 7, 8**일인 경우가 '손 없는 날'로 간주됩니다. (여기서 3, 4, 7, 8일은 손이 해당 방향에서 이동하는 날로, 방향에 따라 손이 있지만 일반적으로 이사에서는 9, 0일을 제외한 1, 2, 5, 6일만 손이 있다고 봅니다. 전통적으로는 **음력 끝자리 9일과 0일**이 전국적으로 손이 없는 날입니다.)</p>
+        </div>
+
+        <h3>2026년 5월 손없는날 달력 정보</h3>
+        <p>**2026년 5월 이사 손없는날**은 다음과 같습니다. 해당 날짜는 수요가 매우 높으니, 이사를 계획하고 있다면 최소 2~3개월 전에 미리 **이사 업체**를 예약하는 것이 중요합니다.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>날짜(양력)</th>
+                    <th>날짜(음력)</th>
+                    <th>요일</th>
+                    <th>손없는날 여부</th>
+                    <th>예약 난이도</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>5월 6일</td>
+                    <td>4월 9일</td>
+                    <td>수요일</td>
+                    <td>**손없는 날**</td>
+                    <td>매우 높음</td>
+                </tr>
+                <tr>
+                    <td>5월 7일</td>
+                    <td>4월 10일</td>
+                    <td>목요일</td>
+                    <td>**손없는 날**</td>
+                    <td>매우 높음</td>
+                </tr>
+                <tr>
+                    <td>5월 16일</td>
+                    <td>4월 19일</td>
+                    <td>토요일</td>
+                    <td>**손없는 날**</td>
+                    <td>**극상 (주말)**</td>
+                </tr>
+                <tr>
+                    <td>5월 17일</td>
+                    <td>4월 20일</td>
+                    <td>일요일</td>
+                    <td>**손없는 날**</td>
+                    <td>**극상 (주말)**</td>
+                </tr>
+                <tr>
+                    <td>5월 26일</td>
+                    <td>4월 29일</td>
+                    <td>화요일</td>
+                    <td>**손없는 날**</td>
+                    <td>매우 높음</td>
+                </tr>
+                <tr>
+                    <td>5월 27일</td>
+                    <td>4월 30일</td>
+                    <td>수요일</td>
+                    <td>**손없는 날**</td>
+                    <td>매우 높음</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="warning-box">
+            <h4>🚨 손없는날 예약 시 유의사항</h4>
+            <p>**5월이사 손없는날**은 이사 수요가 집중되어 일반 이사 비용보다 **10%~30%** 이상 할증이 붙을 수 있습니다. 비용 절약을 최우선으로 한다면, 이사 업체가 한가한 평일이나, 손있는 날 중에서도 수요가 적은 날짜를 선택하는 것이 현명한 방법입니다. **반포장이사**나 **일반이사**를 고려하면 비용 절감 효과를 더욱 높일 수 있습니다.</p>
+        </div>
+        
+    </section>
+    
+    <hr>
+    
+    <section id="cost-analysis">
+        <span id="cost-analysis-anchor" class="anchor"></span>
+        <h2>💰 합리적인 포장이사 비용 심층 분석 및 절약 팁</h2>
+        
+        <p>**이사 비용**은 단순히 짐의 양뿐만 아니라 다양한 변수에 의해 결정됩니다. 특히 **5월 이사 날짜**가 성수기나 **손없는날**과 겹칠 경우 비용은 큰 폭으로 상승합니다. 이사 비용을 합리적으로 책정하고 절약할 수 있는 방법을 자세히 알아보겠습니다.</p>
+
+        <h3>이사 비용 결정 5가지 주요 요인</h3>
+        <ol>
+            <li><strong>이사 날짜:</strong> 주말(토요일), 공휴일, 그리고 **손없는날**은 일반 평일 대비 가장 높은 할증이 붙습니다. 5월은 이사 성수기이므로 평일을 선택해도 비용이 높을 수 있습니다.</li>
+            <li><strong>이사 유형:</strong> **포장이사** (가장 비쌈) &gt; 반포장이사 &gt; 일반이사 &gt; 용달이사 (가장 저렴) 순으로 비용이 책정됩니다.</li>
+            <li><strong>짐의 양 및 포장 난이도:</strong> 가구 및 가전제품의 수량, 옷가지, 주방용품 등 전체 짐의 양이 많을수록 투입되는 인력(주로 3명~5명)과 차량(1톤~5톤)이 늘어나 비용이 증가합니다.</li>
+            <li><strong>운송 거리 및 작업 환경:</strong> 출발지와 도착지의 거리가 멀거나, 엘리베이터/사다리차 사용 불가 등 작업 조건이 까다로울 경우 추가 비용이 발생합니다.</li>
+            <li><strong>부가 서비스:</strong> 벽걸이 TV 설치, 에어컨 탈부착, 특수 가구 분해/조립, 입주 청소 등은 별도 요금이 부과됩니다.</li>
+        </ol>
+
+        <h3>주요 이사 유형별 예상 비용 비교 (2026년 5월 성수기 기준)</h3>
+        <p>아래 표는 **포장이사 비용**에 대한 이해를 돕기 위한 **평균적인 예상 비용**이며, 실제 견적은 방문 견적을 통해 확정됩니다. 이 비용은 손없는날 할증을 일부 포함한 가격대입니다.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>평형/규모</th>
+                    <th>이사 유형</th>
+                    <th>평균 예상 비용 (평일)</th>
+                    <th>**손없는날** 예상 비용</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>원룸/투룸 (1톤)</td>
+                    <td>**반포장이사**</td>
+                    <td>40만 원 ~ 65만 원</td>
+                    <td>50만 원 ~ 80만 원</td>
+                </tr>
+                <tr>
+                    <td>25평 이하 (2.5톤)</td>
+                    <td>**포장이사**</td>
+                    <td>80만 원 ~ 110만 원</td>
+                    <td>100만 원 ~ 140만 원</td>
+                </tr>
+                <tr>
+                    <td>34평 아파트 (5톤)</td>
+                    <td>**포장이사**</td>
+                    <td>120만 원 ~ 160만 원</td>
+                    <td>150만 원 ~ 200만 원</td>
+                </tr>
+                <tr>
+                    <td>대형 평수 (6톤 이상)</td>
+                    <td>프리미엄 포장이사</td>
+                    <td>180만 원 ~ 250만 원+</td>
+                    <td>220만 원 ~ 300만 원+</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>이사 비용 절약 3대 전략</h3>
+        <ol>
+            <li>**이사 날짜 유연하게 조정:** 비용을 가장 크게 줄일 수 있는 방법은 **손없는날**을 피하고, 주중 월요일~목요일 중 이사를 진행하는 것입니다.</li>
+            <li>**최소 3곳 이상 방문 견적:** 전화 견적만으로는 정확한 짐의 양 파악이 어렵습니다. 반드시 전문 업체 최소 3곳 이상에서 **방문 견적**을 받고, 서비스 내용(보험, A/S, 투입 인력 수)을 꼼꼼히 비교해야 합니다.</li>
+            <li>**불필요한 짐 정리:** 이사 전 미리 버릴 짐을 최대한 정리하면 짐의 양이 줄어들어 톤수(차량 크기)가 줄어들고, 결과적으로 인력과 시간이 절약되어 비용이 크게 줄어듭니다.</li>
+        </ol>
+        
+    </section>
+    
+    <hr>
+    
+    <section id="type-tips">
+        <span id="type-tips-anchor" class="anchor"></span>
+        <h2>📦 주요 이사 유형별 선택 가이드</h2>
+        
+        <p>이사 수요가 많은 **5월 이사**에는 주거 형태나 라이프스타일에 맞춰 적합한 이사 유형을 선택하는 것이 중요합니다. **이사 업체** 선택 시 유형별 서비스를 정확히 인지해야 합니다.</p>
+
+        <h3>1. 포장이사 (Full-Packing Moving)</h3>
+        <ul>
+            <li>**특징:** 포장부터 운송, 정리 및 배치, 청소까지 모든 작업을 업체가 전담합니다. 고객은 귀중품만 따로 챙기면 됩니다.</li>
+            <li>**장점:** 가장 편리하고 시간이 절약됩니다. 맞벌이 부부, 짐이 많은 가구에 적합합니다.</li>
+            <li>**단점:** 비용이 가장 높습니다. **손없는날**에는 비용 할증폭이 가장 큽니다.</li>
+        </ul>
+
+        <h3>2. 반포장이사 (Semi-Packing Moving)</h3>
+        <ul>
+            <li>**특징:** 업체가 짐 포장과 운송 및 큰 짐 배치까지 담당하고, **도착지에서 잔짐 정리**는 고객이 직접 합니다.</li>
+            <li>**장점:** **포장이사 비용**보다 10%~20% 저렴하며, 잔짐 정리를 직접 하면서 개인 물품 프라이버시를 지킬 수 있습니다.</li>
+            <li>**단점:** 이사 후 고객이 직접 잔짐을 정리해야 하는 수고가 필요합니다.</li>
+        </ul>
+        
+        <h3>3. 원룸/용달이사 (Small-Scale Moving)</h3>
+        <ul>
+            <li>**특징:** 짐이 적은 원룸, 오피스텔 이사에 주로 사용됩니다. 용달차를 이용해 운반하는 방식으로, 고객이 직접 포장 및 운반을 보조합니다.</li>
+            <li>**장점:** 비용이 매우 저렴합니다. 1~2인 가구에 적합합니다.</li>
+            <li>**단점:** 고객의 노동력이 많이 요구되며, 가구 파손 위험에 대한 주의가 필요합니다.</li>
+        </ul>
+        
+        <div class="info-box">
+            <h4>💡 이사 날짜가 불안하다면?</h4>
+            <p>**5월 이사 손없는날**이 주말과 겹쳐 비용이 부담스럽다면, **손있는 날** 중에서도 **수요일/목요일** 등 수요가 적은 날을 선택하고, 대신 이사 전 소금이나 팥 등을 뿌리는 등의 개인적인 안전 기원 행위를 병행하는 것도 좋은 대안이 될 수 있습니다. 결국 이사 서비스의 질은 날짜보다는 **업체의 신뢰성**에 달려있습니다.</p>
+        </div>
+        
+    </section>
+
+    <hr>
+    
+    <section id="checklist-section">
+        <span id="checklist" class="anchor"></span>
+        <h2>✔️ 이사 전후 4주 필수 **이사 체크리스트**</h2>
+        <p>복잡한 이사 과정을 놓치지 않도록 **이사 체크리스트**를 주차별로 정리했습니다. 이 목록을 따라 준비하면 혼란 없이 이사를 완료할 수 있습니다.</p>
+
+        <h3>1단계: 이사 4주 전 준비 (계획 수립 및 계약)</h3>
+        <ul>
+            <li>**이사 날짜 확정:** **2026년 5월 이사 손없는날** 또는 평일 중 최종 날짜 결정.</li>
+            <li>**이사 업체 선정:** 최소 3곳 이상의 전문 업체로부터 **방문 견적**을 받고 계약 체결. (파손 보상 보험 가입 여부 확인 필수)</li>
+            <li>**집 상태 확인:** 입주할 집의 계약 및 등기부등본, 관리비 및 공과금 정산 내역 확인.</li>
+            <li>**불필요한 짐 정리 및 처분:** 가구, 가전제품 폐기물 스티커 구매 및 수거 예약.</li>
+        </ul>
+
+        <h3>2단계: 이사 2주 전 준비 (행정 및 예약)</h3>
+        <ul>
+            <li>**학교 전학/유치원 변경 신청:** 자녀가 있다면 미리 학교 행정실에 문의.</li>
+            <li>**각종 이전 신청:** 인터넷, TV, 정수기, 신문, 우유 등 서비스 해지 또는 이전 신청.</li>
+            <li>**관리 사무소 협의:** 현재 거주지와 이사 갈 곳의 엘리베이터 또는 **사다리차** 사용 예약 (특히 아파트 이사 시 필수).</li>
+            <li>**주소 변경:** 우체국 '주거 이전 서비스' 신청 및 금융기관 주소 변경.</li>
+        </ul>
+        
+        <h3>3단계: 이사 1주 전 준비 (최종 점검)</h3>
+        <ul>
+            <li>**귀중품 및 현금 별도 보관:** 이사 당일 분실 위험이 있는 귀중품, 신분증, 계약서 등은 고객이 직접 운반할 가방에 따로 정리.</li>
+            <li>**냉장고 정리:** 냉장고 음식물을 최소화하고 미리 성에 제거.</li>
+            <li>**공과금 및 세금 정산:** 도시가스, 전기, 수도 요금 등 최종 정산 및 차단 예약.</li>
+            <li>**새집 청소:** 입주 전 청소(입주청소) 업체 예약 및 완료.</li>
+        </ul>
+
+        <h3>4단계: 이사 당일 및 이후 (마무리)</h3>
+        <ul>
+            <li>**이사 업체 작업 확인:** 계약된 인력 수와 차량이 맞는지 확인하고, 짐 포장 상태와 파손 여부를 꼼꼼히 체크.</li>
+            <li>**잔금 지급:** 이사 작업 완료 후 계약된 잔금 지급. (파손 시 즉시 현장 기록 및 사진 촬영)</li>
+            <li>**전입 신고:** 전입신고 및 확정일자 받기 (정부24 또는 동사무소 방문).</li>
+            <li>**이사 후:** 가스, 전기, 수도 연결 및 작동 여부 점검.</li>
+        </ul>
+        
+        <a href="#contact-form" class="btn-cta">나의 이사 날짜에 맞는 맞춤형 체크리스트 상담 요청</a>
+    </section>
+
+    <hr>
+    
+    <section id="top5-movers">
+        <span id="top5-anchor" class="anchor"></span>
+        <h2>🏆 이사 전문가가 추천하는 전국 이사 업체 선택 기준</h2>
+        
+        <p>이사 업체 선정은 성공적인 이사의 핵심입니다. 특히 **5월 이사 손없는날**에는 검증된 업체에 맡겨야 불이익을 방지할 수 있습니다. 다음은 전국적으로 서비스가 우수하다고 평가되는 이사 업체 선택 기준입니다.</p>
+        
+        <ol>
+            <li>**사업자 등록 및 피해보상 보험 가입 여부:** 화물자동차 운송주선사업 허가증 및 적재물 배상책임 보험 가입은 기본입니다. (관허 업체 확인)</li>
+            <li>**투입 인력 전문성:** 모든 팀원이 정규직 또는 전문 교육을 이수한 전문 인력으로 구성되어 있는지 확인합니다.</li>
+            <li>**계약 내용의 명확성:** 이사 날짜, 시간, 인원, 차량, 추가 비용 항목 등이 계약서에 명확히 명시되어야 합니다.</li>
+            <li>**후기 및 평점:** 실제 이용 고객들의 온라인 후기 및 평점을 다수 확인합니다.</li>
+            <li>**사후 A/S 관리:** 이사 후 발생할 수 있는 문제에 대한 신속한 A/S 처리 시스템을 갖추고 있는지 확인합니다.</li>
+        </ol>
+        
+        <div class="warning-box">
+            <p><strong>주의:</strong> '최저가'만을 내세우는 업체는 인력 수를 줄이거나 불량 포장재를 사용할 위험이 높습니다. 비용과 서비스의 균형을 맞추는 것이 가장 중요합니다.</p>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="references">
+        <h2>📚 출처 및 참고 자료 (신뢰성 있는 정보)</h2>
+        <p>본 정보는 이사 준비의 전문성을 높이기 위해 공인된 기관 및 신뢰할 수 있는 정보원을 참고하여 작성되었습니다.</p>
+        <ul>
+            <li><a href="https://www.nfa.go.kr/" target="_blank" rel="nofollow noopener">**국가법령정보센터**:** 이사 관련 법규 및 운송 약관 (정부 사이트)</a></li>
+            <li><a href="https://namu.wiki/w/%EC%86%90%EC%97%86%EB%8A%94%20%EB%82%A0" target="_blank" rel="nofollow noopener">**나무위키**:** '손없는 날'의 유래와 전통적인 의미</a></li>
+            <li><a href="https://www.kma.go.kr/" target="_blank" rel="nofollow noopener">**기상청**:** 5월의 평균 기온 및 강수량 정보 (이사 날씨 예측)</a></li>
+            <li><a href="https://www.moel.go.kr/" target="_blank" rel="nofollow noopener">**고용노동부**:** 이사 서비스 종사자 안전 및 근로 기준 관련 정보</a></li>
+            <li><a href="https://www.consumer.go.kr/" target="_blank" rel="nofollow noopener">**한국소비자원**:** 이사 서비스 관련 소비자 분쟁 해결 기준</a></li>
+            <li><a href="https://www.gov.kr/main?a=AA020InfoCapFormCntx&p=AA020_02001" target="_blank" rel="nofollow noopener">**정부24**:** 전입신고 및 주소 변경 통합 서비스 안내</a></li>
+        </ul>
+    </section>
+
+    <hr>
+
+    <section id="contact-section">
+        <span id="contact-form" class="anchor"></span>
+        <h2>📞 2026년 5월 이사 손없는날 상세 견적 상담 문의</h2>
+        
+        <p>가장 정확하고 합리적인 **이사 비용**을 확인하기 위해 아래 항목을 자세히 입력해 주세요. 입력 항목이 많을수록 정확한 견적을 받을 수 있으며, 상담을 통해 **이사 체크리스트**를 개인 맞춤형으로 제공해 드립니다.</p>
+        
+        <form action="/submit-move-quote" method="POST">
+            <label for="name">이름<span style="color:red;">*</span></label>
+            <input type="text" id="name" name="name" required placeholder="홍길동" />
+
+            <label for="phone">연락처<span style="color:red;">*</span></label>
+            <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678 (숫자만 입력)" pattern="[0-9\-]+" />
+            
+            <label for="move_date">희망 이사 날짜<span style="color:red;">*</span></label>
+            <input type="date" id="move_date" name="move_date" required style="width:100%; padding:12px; margin-bottom:20px;" />
+            
+            <label for="move-type">이사 유형<span style="color:red;">*</span></label>
+            <select id="move-type" name="move_type" required>
+                <option value="">선택하세요</option>
+                <option value="포장이사">포장이사 (Full)</option>
+                <option value="반포장이사">반포장이사 (Semi)</option>
+                <option value="일반이사">일반이사</option>
+                <option value="원룸/용달이사">원룸/용달이사</option>
+                <option value="사무실/기업이사">사무실/기업이사</option>
+            </select>
+
+            <h3>🏡 이사 환경 상세 정보</h3>
+            
+            <label for="current_size">현재 거주지 평형/규모</label>
+            <input type="text" id="current_size" name="current_size" placeholder="예: 34평 아파트, 8평 원룸" />
+            
+            <label for="current_floor">현 거주지 층수 및 작업 조건</label>
+            <input type="text" id="current_floor" name="current_floor" placeholder="예: 10층 (엘리베이터), 4층 (계단/사다리차 필요)" />
+            
+            <label for="new_floor">이사 갈 곳 층수 및 작업 조건</label>
+            <input type="text" id="new_floor" name="new_floor" placeholder="예: 5층 (사다리차 사용 가능), 1층 빌라" />
+
+            <label for="big_item">주요 대형 가구/가전 (선택 항목)</label>
+            <textarea id="big_item" name="big_item" rows="2" placeholder="예: 시스템 에어컨 2대, 킹사이즈 침대 2개, 양문형 냉장고"></textarea>
+
+            <label for="message">추가 요청 사항 및 특이 사항 (이사 비용 관련 등)</label>
+            <textarea id="message" name="message" rows="4" placeholder="예: 5월 손없는날 비용 할인 요청, 피아노 운반 필요, 주차 공간 협소"></textarea>
+
+            <button type="submit" class="btn-cta">전문가에게 1:1 맞춤 견적 문의 보내기</button>
+        </form>
+    </section>
+
+    <hr>
+
+    <footer>
+        <p>© 2026 이사 손없는날 완벽 가이드 센터. All Rights Reserved.</p>
+        <p>고객센터: <a href="tel:0311234567">031-123-4567</a> | 이메일: <a href="mailto:help@domain.com">help@domain.com</a></p>
+        <p style="font-size: 0.8em; color: #7f8c8d;">본 웹사이트는 이사 정보 제공 및 견적 비교를 위한 서비스로, 직접 이사를 진행하는 업체가 아닐 수 있습니다.</p>
+    </footer>
+</body>
